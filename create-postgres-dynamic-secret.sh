@@ -29,8 +29,7 @@ run_akeyless() {
   fi
 }
 
-# run_akeyless 'target creation' 
-./akeyless target create db \
+run_akeyless 'target creation' target create db \
   --name "$AKEYLESS_DEFAULT_LOCATION/$target_name" \
   --db-type postgres \
   --host "$POSTGRES_HOST" \
@@ -40,8 +39,7 @@ run_akeyless() {
   --pwd "$POSTGRES_PASSWORD"
 
 sql_admin="${POSTGRES_USERNAME//\"/\"\"}"
-# run_akeyless 'dynamic secret creation' 
-./akeyless dynamic-secret create postgresql \
+run_akeyless 'dynamic secret creation' dynamic-secret create postgresql \
   --name "$AKEYLESS_DEFAULT_LOCATION/$secret_name" \
   --target-name "$AKEYLESS_DEFAULT_LOCATION/$target_name" \
   --postgresql-statements "CREATE USER \"{{name}}\" WITH PASSWORD '{{password}}'; GRANT SELECT ON ALL TABLES IN SCHEMA public TO \"{{name}}\"; GRANT CONNECT ON DATABASE postgres TO \"{{name}}\"; GRANT USAGE ON SCHEMA public TO \"{{name}}\";" \
